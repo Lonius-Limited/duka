@@ -1,0 +1,95 @@
+{
+ "category": "Modules",
+ "charts": [
+  {
+   "chart_name": "Top Customers",
+   "label": "Customer performance"
+  }
+ ],
+ "charts_label": "",
+ "creation": "2022-07-24 15:05:11.742370",
+ "developer_mode_only": 0,
+ "disable_user_customization": 0,
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "extends_another_page": 0,
+ "hide_custom": 0,
+ "icon": "getting-started",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "label": "Master Data",
+ "links": [],
+ "modified": "2022-07-24 15:29:57.206786",
+ "modified_by": "Administrator",
+ "module": "Duka",
+ "name": "Master Data",
+ "onboarding": "CRM",
+ "owner": "Administrator",
+ "pin_to_bottom": 0,
+ "pin_to_top": 1,
+ "shortcuts": [
+  {
+   "doc_view": "List",
+   "format": "{} Active",
+   "label": "Items",
+   "link_to": "Item",
+   "stats_filter": "{\n    \"disabled\": false\n}",
+   "type": "DocType"
+  },
+  {
+   "color": "#CB2929",
+   "doc_view": "List",
+   "format": "{} active",
+   "label": "Selling Profiles",
+   "link_to": "POS Profile",
+   "stats_filter": "{\n    \"disabled\": 0\n}",
+   "type": "DocType"
+  },
+  {
+   "color": "#B4CD29",
+   "doc_view": "List",
+   "format": "{} active",
+   "label": "Customer",
+   "link_to": "Customer",
+   "stats_filter": "{\n    \"disabled\": 0\n}",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Item Categories",
+   "link_to": "Item Group",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "",
+   "label": "Warehouse Settings",
+   "link_to": "Stock Settings",
+   "type": "DocType"
+  },
+  {
+   "doc_view": "List",
+   "label": "Manufacturing Workstations",
+   "link_to": "Workstation",
+   "stats_filter": "{\n    \"workstation_name\":[\"!=\",\"\"]\n}",
+   "type": "DocType"
+  },
+  {
+   "color": "#d61a1a",
+   "doc_view": "List",
+   "label": "Manufacturing Activities/Operations",
+   "link_to": "Operation",
+   "type": "DocType"
+  },
+  {
+   "color": "#101440",
+   "doc_view": "Tree",
+   "format": "{} Stores",
+   "label": "Inventory Locations",
+   "link_to": "Warehouse",
+   "stats_filter": "{\n    \"disabled\": 0\n}",
+   "type": "DocType"
+  }
+ ],
+ "shortcuts_label": "Your Master Files"
+}
