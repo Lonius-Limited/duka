@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include duka *.css
+recursive-include duka *.csv
+recursive-include duka *.html
+recursive-include duka *.ico
+recursive-include duka *.js
+recursive-include duka *.json
+recursive-include duka *.md
+recursive-include duka *.png
+recursive-include duka *.py
+recursive-include duka *.svg
+recursive-include duka *.txt
+recursive-exclude duka *.pyc
