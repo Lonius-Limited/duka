@@ -14,7 +14,7 @@ app_license = "MIT"
 
 # include js, css files in header of desk.html
 # app_include_css = "/assets/duka/css/duka.css"
-# app_include_js = "/assets/duka/js/duka.js"
+app_include_js = ["/assets/duka/js/frappe/bom.js","/assets/duka/js/frappe/purchase_receipt.js"]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/duka/css/duka.css"
