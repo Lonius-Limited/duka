@@ -45,7 +45,6 @@ def make_purchase_invoice_shorthand(docname):#Purchase receipt name
 	inc_doc = purchase_invoice.insert() #frappe.db.insert(purchase_invoice)
 
 	inc_doc.submit()
-	frappe.msgprint("A supplier Invoice has been posted to Finance as Invoice: " + inc_doc.name + " for evaluation and payment.")
 	invoice_name =  purchase_invoice.name
 	###
 
@@ -72,7 +71,11 @@ def make_purchase_invoice_shorthand(docname):#Purchase receipt name
 					bank_amount=bank_amount,
 					payment_request_doc=None,
 				)
+	link_to_pe = "<a href = '{}/app/payment-entry/{}' >{}</a>".format(frappe.utils.get_url(),pe2.name,pe2.name)
 
+	msg = "<h4>A supplier Invoice has been posted to Finance as Invoice: {} for evaluation and payment.</h4><p>Click {} to proceed to payment</h4>".format(inc_doc.name, link_to_pe)
+
+	frappe.msgprint(msg, "Posted for Payment")
 
 
 	return pe2.name

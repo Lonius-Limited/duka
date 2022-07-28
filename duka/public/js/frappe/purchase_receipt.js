@@ -22,11 +22,11 @@ const makeArgs = async (frm) => {
     return args;
 }
 const submitInvoice = async (args) => {
-    frappe.call(args).then(res=>{
+    frappe.call(args).then(res => {
         console.log(res)
-       
-        (!res.message) && frappe.throw("Sorry, an error occured and the transaction did not complete.");
 
-        frappe.set_route(`/app/payment-entry/${res.message}`) 
+        if (!res.message) { frappe.throw("Sorry, an error occured and the transaction did not complete.") };
+
+        frappe.set_route(`/app/payment-entry/${res.message}`)
     })
 }
