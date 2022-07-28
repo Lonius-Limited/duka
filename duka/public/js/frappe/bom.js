@@ -25,7 +25,7 @@ frappe.ui.form.on('BOM', {
 			console.log(res)
 			getBomDetails(frm, res.message).then((bomResult) => {
 				resetTable(frm, bomResult)
-				
+
 			})
 
 		})
@@ -36,16 +36,16 @@ const resetTable = async (frm, payload) => {
 	if (payload) {
 		frm.doc.items = [];
 		payload.map(row => {
-			let qtyApportioned = (row.percentage_of_total_manufactured_qty * frm.doc.quantity)/100
+			let qtyApportioned = (row.percentage_of_total_manufactured_qty * frm.doc.quantity) / 100
 			let item = frm.add_child('items', {
 				item_code: row.item_code,
 				item_name: row.item_name,
 				qty: qtyApportioned,
-				rate:row.rate,
+				rate: row.rate,
 				base_rate: row.base_rate,
 				uom: row.uom,
 				stock_uom: row.stock_uom,
-				amount: (row.rate || 0.0 )*qtyApportioned
+				amount: (row.rate || 0.0) * qtyApportioned
 			});
 
 		})
@@ -53,7 +53,7 @@ const resetTable = async (frm, payload) => {
 		return frm;
 	}
 }
-const getBomDetails = async(frm, payload) => {
+const getBomDetails = async (frm, payload) => {
 	let result = [];
 	payload.map(row => {
 		var d = row//locals[cdt][cdn];
@@ -74,9 +74,9 @@ const getBomDetails = async(frm, payload) => {
 				"sourced_by_supplier": d.sourced_by_supplier
 			},
 			callback: function (r) {
-				console.log(row,"and",r.message)
+				console.log(row, "and", r.message)
 
-				result.push({...r.message,...row})
+				result.push({ ...r.message, ...row })
 			},
 			freeze: true,
 			async: false

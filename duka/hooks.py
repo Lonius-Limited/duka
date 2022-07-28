@@ -58,7 +58,7 @@ app_include_js = ["/assets/duka/js/frappe/bom.js","/assets/duka/js/frappe/purcha
 
 # before_install = "duka.install.before_install"
 # after_install = "duka.install.after_install"
-
+after_migrate = ["duka.execute_duka_workspaces"]
 # Uninstallation
 # ------------
 
