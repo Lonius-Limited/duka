@@ -88,7 +88,6 @@ def return_custom_payment_entry(
 		bank_account=None,
 		bank_amount=bank_amount,
 	)
-	# print(f"at the custom method")
 	mails = frappe.utils.split_emails(payment_entry.get("contact_email"))
 	processed_email = mails[0] if len(mails)>1 else None
 	processed_email = frappe.utils.validate_email_address(processed_email)

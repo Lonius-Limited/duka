@@ -1,0 +1,32 @@
+{
+ "custom_fields": [],
+ "custom_perms": [],
+ "doctype": "BOM",
+ "property_setters": [
+  {
+   "_assign": null,
+   "_comments": null,
+   "_liked_by": null,
+   "_user_tags": null,
+   "creation": "2022-07-27 12:15:50.489176",
+   "default_value": null,
+   "doc_type": "BOM",
+   "docstatus": 0,
+   "doctype_or_field": "DocField",
+   "field_name": "template_name",
+   "idx": 0,
+   "modified": "2022-07-27 12:15:50.489176",
+   "modified_by": "cashier@lonius.co.ke",
+   "name": "BOM-template_name-depends_on",
+   "owner": "cashier@lonius.co.ke",
+   "parent": null,
+   "parentfield": null,
+   "parenttype": null,
+   "property": "depends_on",
+   "property_type": "Data",
+   "row_name": null,
+   "value": ""
+  }
+ ],
+ "sync_on_migrate": 1
+}

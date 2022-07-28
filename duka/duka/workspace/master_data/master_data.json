@@ -20,8 +20,8 @@
  "is_standard": 1,
  "label": "Master Data",
  "links": [],
- "modified": "2022-07-24 15:29:57.206786",
- "modified_by": "Administrator",
+ "modified": "2022-07-27 17:17:29.233050",
+ "modified_by": "cashier@lonius.co.ke",
  "module": "Duka",
  "name": "Master Data",
  "onboarding": "CRM",
@@ -88,6 +88,15 @@
    "label": "Inventory Locations",
    "link_to": "Warehouse",
    "stats_filter": "{\n    \"disabled\": 0\n}",
+   "type": "DocType"
+  },
+  {
+   "color": "#761ACB",
+   "doc_view": "List",
+   "format": "{} Submitted",
+   "label": "BOM Formula Templates",
+   "link_to": "BOM Formula Template",
+   "stats_filter": "{\n    \"docstatus\":1\n}",
    "type": "DocType"
   }
  ],
