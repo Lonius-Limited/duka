@@ -71,7 +71,7 @@ def make_purchase_invoice_shorthand(docname):#Purchase receipt name
 					bank_amount=bank_amount,
 					payment_request_doc=None,
 				)
-	link_to_pe = "<a href = '{}/{}' >{}</a>".format(frappe.utils.get_url('/app/payment-entry'),pe2["name"],pe2["name"])
+	link_to_pe = "<a href = '{}/{}' >{}</a>".format(frappe.utils.get_url('/app/payment-entry'),pe2.get("name"),pe2.get("name"))
 
 	msg = "<h4>A supplier Invoice has been posted to Finance as Invoice: {} for evaluation and payment.</h4><p>Click {} to proceed to payment</h4>".format(inc_doc.name, link_to_pe)
 

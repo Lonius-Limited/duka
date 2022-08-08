@@ -5,6 +5,14 @@ frappe.ui.form.on('BOM', {
 		// your code here
 		console.log("I worked on BOM")
 	},
+	onload(frm) {
+		// frappe.realtime.on("check_bom_progress", function (data) {
+		// 	frm.dashboard.show_progress(data.message, (data.count / data.total) * 100, data.message)
+		// 	if (data.count == data.total) {
+		// 		window.setTimeout( function(message) {frm.dashboard.hide_progress(message)}, 1500, data.messsage)
+		// 	}
+		// })
+	},
 	quantity(frm) {
 		if (frm.doc.bom_template && frm.doc.items) {
 			frm.trigger('bom_template');
@@ -84,4 +92,38 @@ const getBomDetails = async (frm, payload) => {
 	})
 	// BOMRESULT = result;
 	return result
+}
+frappe.ui.form.on('Work Order', {
+	onload_post_render(frm) {
+		if (frm.doc.docstatus == 1) {
+			frm.add_custom_button(__("Post Manufacturing Expenses"), function () {
+				//perform desired action such as routing to new form or fetching etc.
+				postManufacturingExpenses(frm).then(r => console.log(r))
+			});
+		}
+
+	}
+})
+frappe.ui.form.on('Work Order Expense', {
+	onload(frm) {
+		console.log("Loaded on Work Order")
+	},
+	expenses_add(frm, cdt, cdn) {
+		const row = locals[cdt][cdn];
+		row.uom = frm.doc.uom
+
+		refresh_field("expenses")
+	}
+})
+
+const postManufacturingExpenses = async (frm) => {
+	let res = {}
+	const docname = frm.doc.name
+	const manufacturingArgs = {
+		method:"duka.api.manufacturing.post_manufacturing_expenses",
+		args:{
+			docname: docname
+		}
+	}
+	frappe.call(manufacturingArgs).then(response=>res=response)
 }
