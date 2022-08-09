@@ -95,11 +95,31 @@ const getBomDetails = async (frm, payload) => {
 }
 frappe.ui.form.on('Work Order', {
 	onload_post_render(frm) {
-		if (frm.doc.docstatus == 1) {
+		if (frm.doc.docstatus == 1 && (frm.doc.journal_entry === null || frm.doc.journal_entry === "" || frm.doc.journal_entry === undefined)) {
 			frm.add_custom_button(__("Post Manufacturing Expenses"), function () {
-				//perform desired action such as routing to new form or fetching etc.
-				postManufacturingExpenses(frm).then(r => console.log(r))
+				console.log(frm.doc.expenses.length)
+				if (!frm.doc.actual_start_date || parseFloat(frm.doc.produced_qty) < 1) {
+					frappe.throw("Sorry, you cannot post expenses for a work order that is not completed yet.")
+				}
+
+				if (frm.doc.expenses.length === 0) {
+					frappe.msgprint("No expenses have been added on the expenses table so this operation cannot proceed.")
+				} else {
+					frappe.confirm('Are you sure you want to proceed? You can only post expenses once.',
+						() => {
+							selectCashOrBank(frm);
+						}, () => {
+							frappe.show_alert({
+								message: __('Action has been cancelled.'),
+								indicator: 'green'
+							}, 5);
+						})
+
+				}
 			});
+		}
+		if (frm.doc.journal_html) {
+			frm.set_intro(frm.doc.journal_html, 'blue');
 		}
 
 	}
@@ -116,14 +136,68 @@ frappe.ui.form.on('Work Order Expense', {
 	}
 })
 
-const postManufacturingExpenses = async (frm) => {
+const postManufacturingExpenses = async (frm, cash_or_bank_account) => {
 	let res = {}
 	const docname = frm.doc.name
-	const manufacturingArgs = {
-		method:"duka.api.manufacturing.post_manufacturing_expenses",
-		args:{
-			docname: docname
+	let expensesTbl = frm.doc.expenses
+	const company = frm.doc.company
+	const item_name = frm.doc.item_name
+	const actual_start_date = frm.doc.actual_start_date
+	const expenses = expensesTbl.map(row => {
+		const operation = row.operation;
+		const quantity_of_finished_goods = row.quantity_of_finished_goods;
+		const uom = row.uom;
+		const operation_cost = parseFloat(frm.doc.produced_qty) * parseFloat(row.operation_cost) / parseFloat(quantity_of_finished_goods);
+		return {
+			operation, quantity_of_finished_goods, uom, operation_cost
 		}
+	})
+	const allArgs = { docname, expenses, company, item_name, actual_start_date, cash_or_bank_account }
+
+	console.log(allArgs)
+	const manufacturingArgs = {
+		method: "duka.api.manufacturing.post_manufacturing_expenses",
+		args: allArgs,
+		async: false
 	}
-	frappe.call(manufacturingArgs).then(response=>res=response)
+	frappe.call(manufacturingArgs).then(response => res = response)
+	return res
+}
+
+const selectCashOrBank = (frm) => {
+	let d = new frappe.ui.Dialog({
+		title: 'Enter a preferred cash or bank account.',
+		fields: [
+			{
+				fieldname: 'disclaimer',
+				fieldtype: 'HTML',
+				options:"<h4 style='color:blue'>Select the cash or bank account to be used to settle the expense</h4><em>If you do not select any, system will pick the default cash account in Company settings.</em><hr>"	
+			},
+			{
+				label: 'Default Cash or Bank(Optional)',
+				fieldname: 'default_cash_or_bank',
+				fieldtype: 'Link',
+				options: 'Account',
+				get_query: () => {
+					return {
+						filters: {
+							account_type: ["IN", ["Bank", "Cash"]],
+							is_group: 0,
+							company: frm.doc.company
+						}
+					};
+				},
+			}
+
+		],
+		primary_action_label: 'Submit',
+		primary_action(values) {
+			console.log(values);
+			const selectedCashOrBankAccount = values.default_cash_or_bank
+			postManufacturingExpenses(frm, selectedCashOrBankAccount).then(r => console.log(r))
+			d.hide();
+		}
+	});
+
+	d.show();
 }
