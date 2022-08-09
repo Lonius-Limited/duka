@@ -52,6 +52,9 @@ def post_manufacturing_expenses(
             journal_entry.get("name"),journal_html, docname
         )
     )
+    frappe.msgprint("Expenses have been posted successfully under Voucher ID: <a href='{}/app/journal-entry/{}'>{}</a>".format(
+        frappe.utils.get_url(),  journal_entry.get("name"),  journal_entry.get("name")
+    ), title="Journal Posted Successfully")
     return payload
 
 

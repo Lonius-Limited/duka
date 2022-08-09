@@ -161,6 +161,7 @@ const postManufacturingExpenses = async (frm, cash_or_bank_account) => {
 		async: false
 	}
 	frappe.call(manufacturingArgs).then(response => res = response)
+	frm.reload_doc();
 	return res
 }
 
