@@ -95,13 +95,11 @@ after_migrate = ["duka.execute_duka_workspaces"]
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Work Order": {
+		"before_submit":"duka.api.manufacturing.work_order_submit"
+	}
+}
 
 # Scheduled Tasks
 # ---------------
