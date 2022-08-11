@@ -14,7 +14,9 @@ def get_bom_raw_materials(formula):
     filters = dict(parent = formula)
     return frappe.get_all("Bom Template Items", filters=filters, fields =["*"])
 def session_defaults_on_login():
-    default_user_company = get_default_user_company(frappe.session.user)
+    user =frappe.session.user
+    default_user_company = get_default_user_company(user)
+    
     if not default_user_company: return
 
     defaults =  get_session_default_values()
@@ -22,12 +24,13 @@ def session_defaults_on_login():
         defaults = [{"fieldname": "company", "fieldtype": "Link", "options": "Company", "label": "Default Company", "default": "Value Produce"}]
     else:
         defaults = json.loads(defaults)
+    
     for d in defaults:
         if d.get('fieldname')=="company":
             d["default"] = default_user_company
+    frappe.msgprint(f"User : {user} Defaults: {defaults}")
     set_session_default_values(defaults)
-    # frappe.msgprint("Set session Company  as {}".format(default_user_company))
-    return 
+    return defaults
 def get_default_user_company(user):
     args = dict(allow="Company", user=user)
     return frappe.get_value("User Permission",args,"for_value")
