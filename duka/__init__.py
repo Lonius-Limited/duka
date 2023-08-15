@@ -28,7 +28,7 @@ def session_defaults_on_login():
     for d in defaults:
         if d.get('fieldname')=="company":
             d["default"] = default_user_company
-    frappe.msgprint(f"User : {user} Defaults: {defaults}")
+    # frappe.msgprint(f"User : {user} Defaults: {defaults}")
     set_session_default_values(defaults)
     return defaults
 def get_default_user_company(user):
