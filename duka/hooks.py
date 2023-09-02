@@ -169,6 +169,7 @@ user_data_fields = [
 		"doctype": "{doctype_4}"
 	}
 ]
+required_apps = ["erpnext"]
 
 # Authentication and authorization
 # --------------------------------
